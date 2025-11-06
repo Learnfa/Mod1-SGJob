@@ -1,0 +1,84 @@
+# -------------------------------
+# Python & Jupyter
+# -------------------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.ipynb_checkpoints/
+.ipynb_checkpoints/
+
+# -------------------------------
+# Virtual environments
+# -------------------------------
+.env
+.venv/
+venv/
+ENV/
+env.bak/
+env/
+
+# -------------------------------
+# VS Code & IDE settings
+# -------------------------------
+.vscode/
+.idea/
+
+# -------------------------------
+# OS files
+# -------------------------------
+.DS_Store
+Thumbs.db
+
+# -------------------------------
+# Data & reports
+# -------------------------------
+data/raw/
+data/interim/
+data/temp/
+*.csv
+*.tsv
+*.xls
+*.xlsx
+*.parquet
+*.feather
+*.json
+*.zip
+*.gz
+
+# -------------------------------
+# Logs & cache
+# -------------------------------
+logs/
+*.log
+*.out
+*.tmp
+*.bak
+.cache/
+__cache__/
+
+# -------------------------------
+# Build / Packaging
+# -------------------------------
+build/
+dist/
+*.egg-info/
+*.egg
+
+# -------------------------------
+# Streamlit / Dash / Flask cache
+# -------------------------------
+.streamlit/
+__pycache__/
+instance/
+*.db
+*.sqlite3
+
+# -------------------------------
+# Misc
+# -------------------------------
+# Ignore model artifacts or large outputs
+models/
+outputs/
+reports/figures/
+notebooks/.ipynb_checkpoints/
