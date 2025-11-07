@@ -71,3 +71,27 @@ def salary_by_sector_bar(df: pd.DataFrame, metric: str = "median") -> alt.Chart:
         )
     )
     return chart
+
+
+def salary_by_title_bar(df: pd.DataFrame, metric: str = "median") -> alt.Chart:
+    data = (
+        df.groupby("title")["average_salary"]
+          .agg(mean="mean", median="median", count="count")
+          .reset_index()
+    )
+
+    chart = (
+        alt.Chart(data)
+        .mark_bar()
+        .encode(
+            x=alt.X(f"{metric}:Q", title=f"{metric.capitalize()} average salary"),
+            y=alt.Y("title:N", sort="-x", title="Job Title"),
+            tooltip=[
+                "title",
+                "mean",
+                "median",
+                "count",
+            ],
+        )
+    )
+    return chart

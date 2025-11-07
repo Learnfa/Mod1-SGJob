@@ -28,44 +28,30 @@ def get_job_data(remove_outliers: bool = True) -> pd.DataFrame:
     st.write(f"📂 Loading dataset from: `{data_path}`")
     df = pd.read_csv(data_path)
     
-    # --- Base type handling -------------------------------------------------
-    # Date columns (if present)
-    if "metadata_originalPostingDate" in df.columns:
-        df["posting_date"] = pd.to_datetime(
-            df["metadata_originalPostingDate"], errors="coerce"
-        )
-        df["posting_month"] = df["posting_date"].dt.to_period("M").astype(str)
-
-    # Salary: ensure numeric
-    if "average_salary" in df.columns:
-        df["average_salary"] = pd.to_numeric(df["average_salary"], errors="coerce")
-
-    # Experience
-    if "minimumYearsExperience" in df.columns:
-        df["minimumYearsExperience"] = pd.to_numeric(
-            df["minimumYearsExperience"], errors="coerce"
-        )
-    
-    # Apps per vacancy
-    if {"metadata_totalNumberJobApplication", "numberOfVacancies"} <= set(df.columns):
-        df["apps_per_vacancy"] = (
-            df["metadata_totalNumberJobApplication"]
-            / df["numberOfVacancies"].replace({0: pd.NA})
-        )
-
-    # --- Salary outlier removal (consistent with EDA) ----------------------
+    # --- Salary & minyrexp outlier removal (consistent with EDA) ----------------------
     if remove_outliers and "average_salary" in df.columns:
         lower_thr = df["average_salary"].quantile(0.01)
         upper_thr = df["average_salary"].quantile(0.99)
+
+        # Ensure experience is numeric for clean filtering
+        if "minimumYearsExperience" in df.columns:
+            df["minimumYearsExperience"] = pd.to_numeric(
+                df["minimumYearsExperience"], errors="coerce"
+            )
 
         original_len = len(df)
         df = df[
             (df["average_salary"] >= lower_thr)
             & (df["average_salary"] <= upper_thr)
+            & (
+                ~df["minimumYearsExperience"].isna()
+                & df["minimumYearsExperience"].between(0, 30, inclusive="both")
+            )
         ].copy()
 
         st.info(
-            f"Filtered salary outliers outside [1%, 99%]. "
+            f"Filtered salary outliers (outside [1%, 99%]) and "
+            f"experience anomalies (<0 or >30 years). "
             f"Rows kept: {len(df):,} "
             f"({100 * len(df) / original_len:.1f}% of original)."
         )

@@ -4,7 +4,7 @@ from typing import List
 
 import pandas as pd
 
-from .config import (
+from src.config import (
     RAW_JOB_MARKET_PATH,
     PROCESSED_DATA_DIR,
     PH1_STRUCTURED_PQ_PATH,
