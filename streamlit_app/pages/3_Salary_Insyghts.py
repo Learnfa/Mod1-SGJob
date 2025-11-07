@@ -136,7 +136,7 @@ def main():
     # ================================
     # 2) Salary distribution by category (sorted by mean, catplot)
     # ================================
-    st.markdown(f"### Salary Distribution by Category (Top {top_n})")
+    st.markdown(f"### Salary Distribution by Sector (Top {top_n})")
 
     if "primary_category" in df_work.columns:
         # Top N categories by posting count (to limit noise)

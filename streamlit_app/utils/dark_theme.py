@@ -24,7 +24,7 @@ class DarkCatplotTheme:
         top_n: int,
         x_col: str = "average_salary",
         y_col: str = "primary_category",
-        title: str = "Salary Distribution by Category",
+#        title: str = "Salary Distribution by Category",
     ):
         sns.set_theme(style="whitegrid")
 
@@ -82,13 +82,6 @@ class DarkCatplotTheme:
         ax.scatter(medians, y_pos, color=self.text_color, s=14, zorder=3)
 
         # labels / ticks
-        ax.set_title(
-            f"{title} (Top {top_n})",
-            fontsize=13,
-            weight="bold",
-            color=self.text_color,
-            pad=10,
-        )
         ax.set_xlabel("Average Salary (SGD)", fontsize=13, color=self.text_color)
         ax.set_ylabel("")
         ax.tick_params(axis="y", labelsize=11, colors=self.text_color)
