@@ -5,13 +5,11 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import altair as alt
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 from utils.data import get_job_data
 from utils.filters import apply_base_filters
 from utils.charts import salary_by_sector_bar, salary_by_title_bar
-from utils.dark_theme import DarkCatplotTheme
+from streamlit_app.utils.dark_catplot import DarkCatplotTheme
 
 def main():
     st.title("💰 Salary Insights")
