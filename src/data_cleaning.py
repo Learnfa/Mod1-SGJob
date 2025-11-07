@@ -1,10 +1,7 @@
 from pathlib import Path
 import pandas as pd
 import numpy as np
-from .config import PROCESSED_DATA_DIR, PH1_STRUCTURED_PQ_PATH
-
-CLEAN_OUTPUT_PATH = PROCESSED_DATA_DIR / "SGJobData_clean.csv"
-
+from .config import PROCESSED_DATA_DIR, PH1_STRUCTURED_PQ_PATH, PH2_CLEANED_CSV_PATH
 
 def load_structured_data(path: Path = PH1_STRUCTURED_PQ_PATH) -> pd.DataFrame:
     """Load Phase 1 structured dataset."""
@@ -72,6 +69,23 @@ def clean_and_transform(df: pd.DataFrame) -> pd.DataFrame:
             )
         )
 
+    # --- Normalize text fields (Title Case) ---
+    def normalize_text(s):
+        if isinstance(s, str):
+            s = s.strip().lower()
+            # Ensure acronyms like 'R&D' or 'IT' stay uppercase
+            return " ".join([w.capitalize() if len(w) > 1 else w.upper() for w in s.split()])
+        return s
+
+    if "postedCompany_name" in df.columns:
+        df["postedCompany_name"] = df["postedCompany_name"].apply(normalize_text)
+
+    if "title" in df.columns:
+        df["title"] = df["title"].apply(normalize_text)
+
+    print("[Phase 2.8] Normalized 'postedCompany_name' and 'title' to Title Case")
+
+
     # --- Derive new columns ---
     if {"salary_minimum", "salary_maximum"}.issubset(df.columns):
         df["average_salary"] = (df["salary_minimum"] + df["salary_maximum"]) / 2
@@ -102,7 +116,7 @@ def clean_and_transform(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def save_clean_data(df: pd.DataFrame, path: Path = CLEAN_OUTPUT_PATH) -> None:
+def save_clean_data(df: pd.DataFrame, path: Path = PH2_CLEANED_CSV_PATH) -> None:
     PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
     df.to_csv(path, index=False)
     print(f"[Phase 2] Clean dataset saved to {path}")

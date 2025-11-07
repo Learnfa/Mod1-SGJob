@@ -1,6 +1,16 @@
 # streamlit_app/app.py
 # Main entry; Streamlit will auto-discover the pages/ folder.
 
+import sys
+from pathlib import Path
+
+# Compute the project root: parent of `streamlit_app`
+ROOT = Path(__file__).resolve().parent.parent
+
+# Ensure project root is on sys.path so `import src` works
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 import streamlit as st
 
 st.set_page_config(

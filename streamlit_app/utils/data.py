@@ -5,6 +5,14 @@
 # ------------------------------
 
 from pathlib import Path
+import sys
+
+# Ensure project root (sgjob_v2) is on sys.path
+# This file lives at: sgjob_v2/streamlit_app/utils/data.py
+ROOT = Path(__file__).resolve().parents[2]  # → sgjob_v2
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 import pandas as pd
 import streamlit as st
 from src.config import PH2_CLEANED_CSV_PATH

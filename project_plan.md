@@ -103,6 +103,14 @@ EDA notebook (`notebooks/eda.ipynb`) and exported static charts (`/reports/figur
 **Goal:** Translate analysis into meaningful business insights.
 
 **Example Insights**
+- which skills and roles are in high demand.
+- which companies are hiring aggressively in tech
+- Top 20 list:
+  - company by job posting
+  - sectors by ave salary
+  - titles by ave salary
+  - etc
+- Salary Analysis & Market Benchmarking
 - IT, Professional Services, and Consulting have the highest average salary ranges.
 - Non-Executive roles dominate Admin and Secretarial categories.
 - High competition in IT sector — more postings but slower closure rate.

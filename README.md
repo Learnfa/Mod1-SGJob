@@ -30,7 +30,6 @@ It is structured for reproducibility and can be extended for other labor-market 
 ---
 
 ## 📂 Folder Structure
-## 📂 Folder Structure
 
 ```text
 sg-job-market-dashboard/
@@ -129,13 +128,96 @@ uv run python -m src.data_cleaning
 
 All generated via Matplotlib / Seaborn and saved in reports/figures/.
 
-💡 Next Phases
+## Phase 4 – Insight Generation
 
-Phase 4 – Insight Generation
-Translate analytical findings into business insights (e.g., sectors with highest salary growth).
+**Goal:**  
+Translate analytical findings from the EDA into clear, data-driven insights that reveal Singapore’s job-market dynamics and prepare them for interactive visualization.
 
-Phase 5 – Streamlit Dashboard
-Interactive filters, salary comparisons, and category trends.
+**Deliverables**
+- `notebooks/insights.ipynb` – Reproducible notebook computing key metrics and generating static charts.  
+- `reports/data/*.csv` – Aggregated datasets (e.g., top sectors, top titles, salary statistics).  
+- `reports/figures/*.png` – Exported figures for each insight (ready for dashboard or report use).  
+- `reports/insights_catalog.md` – Narrative catalog describing each insight and corresponding visualization.
 
-Phase 6 – Deployment
-uv Dockerized image → deploy to Streamlit Cloud or container host.
+**Key Analytical Themes**
+1. **Demand & Hiring Landscape**  
+   - Top hiring sectors and companies  
+   - Executive-level dominance in job postings  
+   - Posting seasonality and volume trends  
+
+2. **Salary Analysis & Benchmarking**  
+   - Average and median salary by sector  
+   - Top-paying job titles (≥ 5 postings)  
+   - Experience–salary relationships  
+   - Seniority premiums within each sector  
+
+3. **Competition & Market Tightness**  
+   - Applications per vacancy by sector  
+   - Hard-to-fill roles (median days open, repost frequency)  
+   - Quick-fill administrative positions  
+
+4. **Skills & Emerging Trends**  
+   - Growth in Data & AI-related roles over time  
+   - Sectoral spread of AI/Data positions  
+
+5. **Operational Insights**  
+   - Average posting lifespan (`days_open`)  
+   - Reposting frequency as indicator of hiring friction  
+
+6. **Market Concentration (Example Findings)**  
+   - Top 20 companies account for only ~30 % of postings, confirming a **long-tail hiring** pattern.  
+   - Herfindahl–Hirschman Index (HHI) ≈ 90 → **Highly competitive / fragmented market**.  
+
+**Outputs are consumed by:**  
+Phase 5 – Interactive Dashboard (Streamlit), where users can dynamically filter and explore these insights.
+
+---
+
+### Phase 5 – Dashboard Development (Streamlit)
+
+**Goal:**  
+Create an interactive web dashboard for **data storytelling** that allows users to explore Singapore’s job-market insights dynamically.
+
+**Dashboard Features**
+
+#### 🧭 Overview Page
+- Displays total job postings, average salary, and top hiring industries.
+- Interactive filters: **Employment Type**, **Position Level**, **Category**.
+
+#### 📈 Industry Trends
+- Line chart showing job-posting trends over time by sector.
+- Heatmap illustrating **category vs. position level** relationships.
+
+#### 💰 Salary Insights
+- Interactive comparison of average and median salaries by category.
+- Adjustable filters for **Years of Experience** and **Employment Type**.
+
+#### 👩‍💼 Experience & Roles
+- Scatter plot: **Experience vs. Salary** to highlight market benchmarks.
+- Countplot: role distribution by **Level** and **Experience Range**.
+
+#### 📤 Export Options
+- Allow users to **download filtered datasets as CSV** for offline analysis.
+
+**Deliverable:**  
+A fully functional **Streamlit dashboard** that integrates outputs from Phase 4 (`/reports/data` and `/reports/figures`) to enable interactive exploration and storytelling of Singapore’s job-market dynamics.
+
+### Phase 6 – Deployment & Presentation
+
+**Goal:**  
+Deploy the Streamlit dashboard to a live environment and prepare materials for stakeholder presentation and demonstration.
+
+**Deployment Options**
+- **Streamlit Community Cloud:** Simple deployment with automatic GitHub integration.  
+- **Internal Server / VM:** Containerized deployment via Docker Compose for production-grade hosting.  
+- **Cloud Provider (AWS / GCP / Azure):** Managed hosting with HTTPS, authentication, and usage tracking.
+
+**Deployment Steps**
+1. Finalize environment configuration (`requirements.txt` / `Dockerfile`).  
+2. Set up environment variables (e.g., data paths, access keys).  
+3. Deploy Streamlit app using `streamlit run app.py` or via CI/CD pipeline.  
+4. Configure reverse proxy and HTTPS (if self-hosted).  
+5. Validate interactive features and ensure dataset auto-refresh (optional via cron or API).  
+
+**Presentation Materials**
+- Demo walkthrough highlighting dashboard features and insights.  

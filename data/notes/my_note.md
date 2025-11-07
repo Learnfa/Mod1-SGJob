@@ -43,12 +43,19 @@ uv run python -m src.data_ingestion
 # Phase 2
 uv run python -m src.data_cleaning
 ```
-#### 5. Git
+
+#### 5. Run a stramlite app
+```bash
+cd streamlit_app
+uv run streamlit run streamlit_app/app.py
+```
+
+#### 6. Git
 ```
 git init
 git add .
 git commit -m "Initial commit"
 git branch -M main
 git push -f origin main
-git remote add origin https://github.com/Learnfa/SGJob-Module-1.git
+git remote add origin https://github.com/Learnfa/Mod1-SGJob.git
 git push -u origin main
